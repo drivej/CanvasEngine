@@ -1,5 +1,7 @@
 const { CanvasStage } = require('./src/CanvasEngine.core');
 
-export default {
-  CanvasStage: CanvasStage,
+export const CanvasStage = CanvasStage;
+
+exports.printMsg = function () {
+  console.log('This is a message from the demo package');
 };
