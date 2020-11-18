@@ -1,11 +1,12 @@
 {
-  "name": "canvasengine",
+  "name": "html-canvas-engine",
   "version": "1.0.0",
   "description": "HTML Canvas scene builder",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "Xtype": "Xmodule",
   "keywords": [
     "canvas",
     "html",
@@ -13,5 +14,8 @@
     "parallax"
   ],
   "author": "Jason Contento",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "gsap": "^3.5.1"
+  }
 }
