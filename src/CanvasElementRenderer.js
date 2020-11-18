@@ -1,5 +1,6 @@
 import { CanvasBitmapRenderer } from './CanvasBitmapRenderer';
 import { CanvasImageLoader } from './CanvasImageLoader';
+import { rad, _rad } from './CanvasUtils';
 
 export function CanvasElementRenderer() {
   var ctx = this.root.ctx;
