@@ -6,8 +6,8 @@ export function CanvasBitmapRenderer() {
       var h = this.root.height;
       var _w = this.__width;
       var _h = this.__height;
-      var _ox = Math.floor((this.__x % _w) - _w);
-      var _oy = Math.floor((this.__y % _h) - _h);
+      var _ox = (this.__x % _w) - _w;
+      var _oy = (this.__y % _h) - _h;
       var ox = _ox;
       var oy = _oy;
       while (oy < h) {

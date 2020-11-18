@@ -1,5 +1,6 @@
 import { CanvasBitmapRenderer } from './CanvasBitmapRenderer';
 import { CanvasImageLoader } from './CanvasImageLoader';
+import { CanvasTextRenderer } from './CanvasTextRenderer';
 import { rad, _rad } from './CanvasUtils';
 
 export function CanvasElementRenderer() {
