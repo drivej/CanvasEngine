@@ -10,13 +10,15 @@ export function CanvasBitmapRenderer() {
       var _oy = (this.__y % _h) - _h;
       var ox = _ox;
       var oy = _oy;
+      var xStep = Math.floor(_w);
+      var yStep = Math.floor(_h);
       while (oy < h) {
         while (ox < w) {
           ctx.drawImage(this.bitmapData, ox, oy, _w, _h);
-          ox += Math.floor(_w);
+          ox += xStep;
         }
         ox = _ox;
-        oy += Math.floor(_h);
+        oy += yStep;
       }
     } else {
       var w = this.root.width;
