@@ -1,0 +1,17 @@
+{
+  "name": "canvasengine",
+  "version": "1.0.0",
+  "description": "HTML Canvas scene builder",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "canvas",
+    "html",
+    "animation",
+    "parallax"
+  ],
+  "author": "Jason Contento",
+  "license": "ISC"
+}
