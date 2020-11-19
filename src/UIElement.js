@@ -98,10 +98,13 @@ export function UIElement(props) {
     c.parent = self;
     c.root = self.root;
     c.parentChain = self.parentChain.concat([self]);
+    c.children.forEach((child) => {
+      child.root = self.root;
+    });
     if (c.viewport === false) c.viewport = self.viewport;
     self.children.push(c);
     sortChildren();
-    self.root.addRootNode(c);
+    if (self.root.addRootNode) self.root.addRootNode(c);
     return c;
   }
 
