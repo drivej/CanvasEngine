@@ -1,0 +1,36 @@
+export function CanvasStage(config: any): void;
+export class CanvasStage {
+    constructor(config: any);
+    dragX: boolean;
+    dragY: boolean;
+    dragZ: boolean;
+    userBounds: CanvasBounds;
+    cameraBounds: CanvasBounds;
+    maxWidth: any;
+    maxHeight: any;
+    dragFactor: number;
+    camera: CanvasCamera;
+    cvs: HTMLCanvasElement;
+    ctx: CanvasRenderingContext2D;
+    root: UIElement;
+    mouse: boolean | UIMouse;
+    startRender: () => void;
+    stopRender: () => void;
+    setSize: (w: any, h: any) => void;
+    allImages: any[];
+    preloadImages: any[];
+    nonPreloadImages: any[];
+    importData: (data: any) => void;
+    getElementById: (id: any) => any;
+    getVisibleElements: () => any[];
+    addChild: (c: any) => any;
+    on: (evt: any, func: any) => UIElement;
+    trigger: (evt: any, bubble: any) => void;
+    setProperty: (props: any) => void;
+    render: () => void;
+    setFillStyle: (f: any) => void;
+}
+import { CanvasBounds } from "./CanvasBounds";
+import { CanvasCamera } from "./CanvasCamera";
+import { UIElement } from "./UIElement";
+import { UIMouse } from "./UIElement";
