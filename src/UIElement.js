@@ -485,18 +485,18 @@ export function UIMouse(config) {
     return p;
   }
 
-  if (hasTouch) {
-    _targ.addEventListener('touchstart', handleMouse);
-    _targ.addEventListener('touchmove', handleMouse);
-    _targ.addEventListener('touchend', handleMouse);
-    _targ.addEventListener('touchcancel', handleMouse);
-    // $(_targ).on('touchstart touchmove touchend touchcancel',handleMouse);
-  } else {
-    _targ.addEventListener('mousewheel', handleMouse);
-    _targ.addEventListener('mousedown', handleMouse);
-    _targ.addEventListener('mousemove', handleMouse);
-    _targ.addEventListener('mouseup', handleMouse);
-    _targ.addEventListener('mouseleave', handleMouse);
-    // $(_targ).on('mousewheel mousedown mousemove mouseup mouseleave',handleMouse);
-  }
+  // if (hasTouch) {
+  _targ.addEventListener('touchstart', handleMouse, { passive: true });
+  _targ.addEventListener('touchmove', handleMouse, { passive: true });
+  _targ.addEventListener('touchend', handleMouse, { passive: true });
+  _targ.addEventListener('touchcancel', handleMouse, { passive: true });
+  // $(_targ).on('touchstart touchmove touchend touchcancel',handleMouse);
+  // } else {
+  _targ.addEventListener('mousewheel', handleMouse);
+  _targ.addEventListener('mousedown', handleMouse);
+  _targ.addEventListener('mousemove', handleMouse);
+  _targ.addEventListener('mouseup', handleMouse);
+  _targ.addEventListener('mouseleave', handleMouse);
+  // $(_targ).on('mousewheel mousedown mousemove mouseup mouseleave',handleMouse);
+  // }
 }
