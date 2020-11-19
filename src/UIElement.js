@@ -486,10 +486,10 @@ export function UIMouse(config) {
   }
 
   if (hasTouch) {
-    _targ.addEventListener('touchstart', handleMouse, { passive: true });
-    _targ.addEventListener('touchmove', handleMouse, { passive: true });
-    _targ.addEventListener('touchend', handleMouse, { passive: true });
-    _targ.addEventListener('touchcancel', handleMouse, { passive: true });
+    _targ.addEventListener('touchstart', handleMouse);
+    _targ.addEventListener('touchmove', handleMouse);
+    _targ.addEventListener('touchend', handleMouse);
+    _targ.addEventListener('touchcancel', handleMouse);
   } else {
     _targ.addEventListener('mousewheel', handleMouse);
     _targ.addEventListener('mousedown', handleMouse);
