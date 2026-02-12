@@ -26,7 +26,11 @@ export function CanvasCamera(config) {
         case 'x':
         case 'y':
         case 'z':
-          loc[e] = Math.round(loc[e]);
+          if (!isNaN(loc[e])) {
+            loc[e] = Math.round(loc[e]);
+          } else {
+            loc[e] = 0;
+          }
         case 'offsetX':
         case 'offsetY':
         case 'focalLength':

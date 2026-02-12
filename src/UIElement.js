@@ -324,15 +324,6 @@ export function UIMouse(config) {
   var LAST_OVER_TARGET = false;
   var hasTouch = 'ontouchstart' in window && !/hp-tablet/gi.test(navigator.appVersion);
 
-  /*
-	var CustomUIEvent = {
-		DOWN:hasTouch ? 'touchstart' : 'mousedown',
-		MOVE:hasTouch ? 'touchmove' : 'mousemove',
-		UP:hasTouch ? 'touchend' : 'mouseup',
-		LEAVE:hasTouch ? 'touchcancel' : 'mouseleave',
-		WHEEL:'mousewheel'
-	};
-	*/
   function fixMouseEvent(e) {
     e.multitouch = false;
     e.zoomedIn = document.width / window.innerWidth > 1;
@@ -370,7 +361,6 @@ export function UIMouse(config) {
   function handleMouse(e) {
     e.preventDefault();
     fixMouseEvent(e);
-    // var offset = $(_targ).offset();
     var rect = _targ.getBoundingClientRect();
     var offset = {
       top: rect.top + document.body.scrollTop,
@@ -383,7 +373,6 @@ export function UIMouse(config) {
 
     switch (EVENT.type) {
       case UIEventTypes.WHEEL:
-        // console.log(e)
         EVENT.deltaFactor = e.originalEvent && e.originalEvent.deltaFactor ? e.originalEvent.deltaFactor : 1;
         EVENT.deltaX = 'deltaX' in e ? e.deltaX : e.originalEvent.deltaX;
         EVENT.deltaY = 'deltaY' in e ? e.deltaY : e.originalEvent.deltaY;

@@ -1,19 +1,14 @@
 {
-  // Change this to match your project
-  "include": ["src/**/*"],
-
   "compilerOptions": {
-    // Tells TypeScript to read JS files, as
-    // normally they are ignored as source files
-    "allowJs": true,
-    // Generate d.ts files
+    "target": "es6",
+    "module": "commonjs",
     "declaration": true,
-    // This compiler run should
-    // only output d.ts files
-    "emitDeclarationOnly": true,
-    // Types should go into this directory.
-    // Removing this would place the .d.ts files
-    // next to the .js files
-    "outDir": "./dist"
-  }
+    "outDir": "./lib",
+    "strict": true,
+    "moduleResolution": "node",
+    "allowJs": true,
+    "checkJs": false
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "**/__tests__/*"]
 }

@@ -6,6 +6,6 @@ export class CanvasBounds {
     maxY: number;
     minZ: number;
     maxZ: number;
-    set(o: any): void;
+    set(config: any): void;
     clamp(p: any): any;
 }

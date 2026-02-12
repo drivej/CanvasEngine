@@ -358,7 +358,8 @@ export function CanvasStage(config) {
             position.x = clamp(position.x, t.dragBounds.minX, t.dragBounds.maxX);
             position.y = clamp(position.y, t.dragBounds.minY, t.dragBounds.maxY);
           }
-          TweenEngine.to(t, 0.3, {
+          TweenEngine.to(t, {
+            duration: 0.3,
             x: position.x,
             y: position.y,
             onUpdate: function () {
