@@ -540,11 +540,11 @@ function UIMouse(config) {
     }
     return p;
   }
-  _targ.addEventListener("mousewheel", handleMouse);
-  _targ.addEventListener("pointerdown", handleMouse);
-  _targ.addEventListener("pointermove", handleMouse);
-  _targ.addEventListener("pointerup", handleMouse);
-  _targ.addEventListener("pointerleave", handleMouse);
+  _targ.addEventListener("mousewheel", handleMouse, { passive: false });
+  _targ.addEventListener("pointerdown", handleMouse, { passive: false });
+  _targ.addEventListener("pointermove", handleMouse, { passive: false });
+  _targ.addEventListener("pointerup", handleMouse, { passive: false });
+  _targ.addEventListener("pointerleave", handleMouse, { passive: false });
 }
 
 // src/CanvasStage.js

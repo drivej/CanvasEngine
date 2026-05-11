@@ -4,7 +4,7 @@ var UIELEMENT_UNIQUEID = 0;
 
 export class UIElement {
   constructor(props) {
-    console.log('make')
+    console.log('make');
     var self = this;
 
     this.id = '';
@@ -243,8 +243,8 @@ export class UIElement {
       }
     }
 
-    this.update = function () { };
-    this.render = function () { };
+    this.update = function () {};
+    this.render = function () {};
     this._render = _render;
     this.trigger = trigger;
     this.willTrigger = willTrigger;
@@ -305,7 +305,7 @@ export var UIEventTypes = {
   REMOVED: 'removed',
   CHANGED: 'changed',
   UPDATED: 'updated',
-  PROGRESS: 'progress',
+  PROGRESS: 'progress'
 };
 
 export function UIMouse(config) {
@@ -359,7 +359,7 @@ export function UIMouse(config) {
       pointerdown: UIEventTypes.DOWN,
       pointerup: UIEventTypes.UP,
       pointermove: self.isDown ? UIEventTypes.DRAG : UIEventTypes.MOVE,
-      pointerleave: UIEventTypes.LEAVE,
+      pointerleave: UIEventTypes.LEAVE
     };
     return EVENTS[str] || '';
   }
@@ -370,7 +370,7 @@ export function UIMouse(config) {
     var rect = _targ.getBoundingClientRect();
     var offset = {
       top: rect.top + document.body.scrollTop,
-      left: rect.left + document.body.scrollLeft,
+      left: rect.left + document.body.scrollLeft
     };
 
     self.position.x = e.pageX - offset.left;
@@ -480,11 +480,11 @@ export function UIMouse(config) {
     return p;
   }
 
-  _targ.addEventListener('mousewheel', handleMouse);
-  _targ.addEventListener('pointerdown', handleMouse);
-  _targ.addEventListener('pointermove', handleMouse);
-  _targ.addEventListener('pointerup', handleMouse);
-  _targ.addEventListener('pointerleave', handleMouse);
+  _targ.addEventListener('mousewheel', handleMouse, { passive: false });
+  _targ.addEventListener('pointerdown', handleMouse, { passive: false });
+  _targ.addEventListener('pointermove', handleMouse, { passive: false });
+  _targ.addEventListener('pointerup', handleMouse, { passive: false });
+  _targ.addEventListener('pointerleave', handleMouse, { passive: false });
 
   // if (hasTouch) {
   //   _targ.addEventListener('touchstart', handleMouse);
