@@ -1,10 +1,15 @@
 {
   "name": "html-canvas-engine",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "HTML Canvas scene builder",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "npm run build:tsc && npm run build:bundle",
+    "build:tsc": "tsc",
+    "build:bundle": "esbuild index.js --bundle --outfile=dist/CanvasEngine.esm.js --format=esm --external:gsap",
+    "build:iife": "esbuild src/main.js --bundle --outfile=dist/CanvasEngine.js --format=iife --global-name=CanvasEngine",
+    "dev": "node test/dev-server.js",
+    "serve": "node test/serve.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "ts": "npx tsc"
   },
@@ -17,10 +22,11 @@
   "author": "Jason Contento",
   "license": "ISC",
   "dependencies": {
-    "@types/gsap": "^1.20.2",
-    "gsap": "^3.5.1"
+    "@types/gsap": "^3.0.0",
+    "gsap": "^3.15.0"
   },
   "devDependencies": {
-    "typescript": "^4.1.2"
+    "esbuild": "^0.28.0",
+    "typescript": "^6.0.3"
   }
 }

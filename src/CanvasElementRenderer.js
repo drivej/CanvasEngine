@@ -1,7 +1,7 @@
 import { CanvasBitmapRenderer } from './CanvasBitmapRenderer';
 import { CanvasImageLoader } from './CanvasImageLoader';
 import { CanvasTextRenderer } from './CanvasTextRenderer';
-import { rad, _rad } from './CanvasUtils';
+import { rad, _rad, drawRoundedRect } from './CanvasUtils';
 
 export function CanvasElementRenderer() {
   var ctx = this.root.ctx;
@@ -64,7 +64,7 @@ export function CanvasElementRenderer() {
     } else {
       if (this.borderRadius !== false) {
         // rounded corners! - can't live without this
-        CanvasUtils.drawRoundedRect(ctx, this.__x, this.__y, this.__width, this.__height, this.borderRadius, this.fillStyle);
+        drawRoundedRect(ctx, this.__x, this.__y, this.__width, this.__height, this.borderRadius, this.fillStyle);
       } else {
         ctx.fillRect(this.__x, this.__y, this.__width, this.__height);
       }

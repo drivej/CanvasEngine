@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Engine Test</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "gsap": "https://cdn.skypack.dev/gsap@3.5.1"
+        }
+      }
+    </script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: #1a1a1a;
+        color: #fff;
+        overflow: hidden;
+      }
+
+      #controls {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        border-radius: 8px;
+        z-index: 1000;
+        max-width: 300px;
+      }
+
+      #controls h2 {
+        margin: 0 0 15px 0;
+        font-size: 18px;
+        color: #4CAF50;
+      }
+
+      #controls button {
+        background: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        margin: 5px 5px 5px 0;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background 0.3s;
+      }
+
+      #controls button:hover {
+        background: #45a049;
+      }
+
+      #controls button:active {
+        transform: scale(0.98);
+      }
+
+      #info {
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #333;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      #info div {
+        margin: 5px 0;
+      }
+
+      .cursor-pointer {
+        cursor: pointer !important;
+      }
+
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="controls">
+      <h2>Canvas Engine Test</h2>
+      <button id="addBox">Add Box</button>
+      <button id="addCircle">Add Circle</button>
+      <button id="clear">Clear All</button>
+      <button id="toggleRender">Stop Render</button>
+      <div id="info">
+        <div><strong>Instructions:</strong></div>
+        <div>• Click buttons to add elements</div>
+        <div>• Drag elements around</div>
+        <div>• Use mouse wheel to zoom</div>
+        <div><strong>Keyboard (while dragging):</strong></div>
+        <div>• ↑ / + : Increase z-depth</div>
+        <div>• ↓ / - : Decrease z-depth</div>
+        <div>• [ / ] : Change z-depth</div>
+        <div id="elementCount">Elements: 0</div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { CanvasStage, CanvasElement, UIEventTypes } from '../dist/CanvasEngine.esm.js';
+
+      console.log('Canvas Engine Test Starting...');
+
+      // Create the stage
+      const stage = new CanvasStage({
+        width: window.innerWidth,
+        height: window.innerHeight,
+        fillStyle: '#2a2a2a',
+        fullscreen: true,
+        wheelZoom: true,
+        mouseEnabledX: true,
+        mouseEnabledY: true,
+        mouseEnabledZ: true
+      });
+
+      // Append canvas to body
+      document.body.appendChild(stage.cvs);
+
+      // Start rendering
+      stage.startRender();
+
+      console.log('Stage created:', stage);
+
+      let elementCounter = 0;
+
+      // Helper function to generate random color
+      function randomColor() {
+        const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E2'];
+        return colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      // Function to add a box
+      function addBox() {
+        const size = 50 + Math.random() * 100;
+        const box = new CanvasElement({
+          id: `box-${elementCounter++}`,
+          x: Math.random() * (window.innerWidth - size),
+          y: Math.random() * (window.innerHeight - size),
+          width: size,
+          height: size,
+          fillStyle: randomColor(),
+          alpha: 0.9,
+          rotation: Math.random() * 360,
+          draggable: true,
+        });
+
+        // Add event listeners
+        box.on(UIEventTypes.OVER, function(e) {
+          this.alpha = 1;
+          console.log('Mouse over:', this.id);
+        });
+
+        box.on(UIEventTypes.OUT, function(e) {
+          this.alpha = 0.9;
+        });
+
+        box.on(UIEventTypes.CLICK, function(e) {
+          console.log('Clicked:', this.id);
+          // Rotate on click
+          this.rotation += 45;
+        });
+
+        box.on(UIEventTypes.DRAG_START, function(e) {
+          console.log('Drag start:', this.id);
+          this.scale = 1.1;
+        });
+
+        box.on(UIEventTypes.DRAG_END, function(e) {
+          console.log('Drag end:', this.id);
+          this.scale = 1;
+        });
+
+        stage.addChild(box);
+        updateElementCount();
+        console.log('Added box:', box.id);
+      }
+
+      // Function to add a circle
+      function addCircle() {
+        const radius = 25 + Math.random() * 50;
+        const circle = new CanvasElement({
+          id: `circle-${elementCounter++}`,
+          x: Math.random() * (window.innerWidth - radius * 2),
+          y: Math.random() * (window.innerHeight - radius * 2),
+          width: radius * 2,
+          height: radius * 2,
+          fillStyle: randomColor(),
+          draggable: true,
+          alpha: 0.9,
+          borderRadius: radius
+        });
+
+        // Add event listeners
+        circle.on(UIEventTypes.OVER, function(e) {
+          this.alpha = 1;
+          console.log('Mouse over:', this.id);
+        });
+
+        circle.on(UIEventTypes.OUT, function(e) {
+          this.alpha = 0.9;
+        });
+
+        circle.on(UIEventTypes.CLICK, function(e) {
+          console.log('Clicked:', this.id);
+          // Scale on click
+          this.scale = this.scale === 1 ? 1.5 : 1;
+        });
+
+        circle.on(UIEventTypes.DRAG_START, function(e) {
+          console.log('Drag start:', this.id);
+        });
+
+        stage.addChild(circle);
+        updateElementCount();
+        console.log('Added circle:', circle.id);
+      }
+
+      // Function to clear all elements
+      function clearAll() {
+        const elements = stage.getVisibleElements();
+        elements.forEach(el => {
+          el.remove();
+        });
+        elementCounter = 0;
+        updateElementCount();
+        console.log('Cleared all elements');
+      }
+
+      // Update element count display
+      function updateElementCount() {
+        const count = stage.getVisibleElements().length;
+        document.getElementById('elementCount').textContent = `Elements: ${count}`;
+      }
+
+      // Toggle render
+      let isRendering = true;
+      const toggleBtn = document.getElementById('toggleRender');
+      function toggleRender() {
+        if (isRendering) {
+          stage.stopRender();
+          toggleBtn.textContent = 'Start Render';
+          isRendering = false;
+          console.log('Rendering stopped');
+        } else {
+          stage.startRender();
+          toggleBtn.textContent = 'Stop Render';
+          isRendering = true;
+          console.log('Rendering started');
+        }
+      }
+
+      // Button event listeners
+      document.getElementById('addBox').addEventListener('click', addBox);
+      document.getElementById('addCircle').addEventListener('click', addCircle);
+      document.getElementById('clear').addEventListener('click', clearAll);
+      document.getElementById('toggleRender').addEventListener('click', toggleRender);
+
+      // Keyboard controls for z-depth
+      const zDepthStep = 10;
+      document.addEventListener('keydown', (e) => {
+        const selectedElement = stage.root.dragTarget;
+        
+        // Only apply z-depth controls if an element is selected
+        if (!selectedElement || selectedElement === stage.root || selectedElement === stage) {
+          return;
+        }
+
+        switch(e.key) {
+          case 'ArrowUp':
+          case '+':
+          case '=':
+            e.preventDefault();
+            selectedElement.setProperty({ z: selectedElement.z + zDepthStep });
+            console.log(`${selectedElement.id} z-depth increased to: ${selectedElement.z}`);
+            break;
+          case 'ArrowDown':
+          case '-':
+          case '_':
+            e.preventDefault();
+            selectedElement.setProperty({ z: selectedElement.z - zDepthStep });
+            console.log(`${selectedElement.id} z-depth decreased to: ${selectedElement.z}`);
+            break;
+          case '[':
+            e.preventDefault();
+            selectedElement.setProperty({ z: selectedElement.z - zDepthStep });
+            console.log(`${selectedElement.id} z-depth decreased to: ${selectedElement.z}`);
+            break;
+          case ']':
+            e.preventDefault();
+            selectedElement.setProperty({ z: selectedElement.z + zDepthStep });
+            console.log(`${selectedElement.id} z-depth increased to: ${selectedElement.z}`);
+            break;
+        }
+      });
+
+      // Add some initial elements
+      addBox();
+      addCircle();
+      addBox();
+
+      // Make stage available globally for debugging
+      window.stage = stage;
+      console.log('Test setup complete. Stage available as window.stage');
+    </script>
+  </body>
+</html>
